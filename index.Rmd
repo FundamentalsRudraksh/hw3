@@ -1,0 +1,82 @@
+---
+title: "DACSS-601 Hw-03"
+author: "Rudraksh Sharma"
+date: "2026-01-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr) # Load the package for future use
+library(readr)# Load the package for future use
+```
+
+```{r}
+maternal_mortality <- read_csv("Maternal mortality ratio.csv") # read the data into a data frame
+str(maternal_mortality) # Shows the structure of the data
+
+maternal_clean <- maternal_mortality %>%
+  select(country = name, variable = `deaths/100000 live births`,region = region) # Selects only the 3 required columns: country name, variable and region
+
+maternal_clean <- maternal_clean %>% mutate( # Clean the data
+    country = trimws(country), # Trim any white spaces
+    region = trimws(region), # Trim any white spaces
+    variable = as.numeric(variable) # Checks that the values are numeric only
+  ) %>% filter(!is.na(variable)) # Removes any missing rows
+
+saveRDS(maternal_clean, "maternal_mortality_ratio.rds") # Saves the data as an RDS file
+write_csv(maternal_clean, "maternal_mortality_ratio.csv") # Saves the data as a CSV file
+
+maternal_mortality_rds <- readRDS("maternal_mortality_ratio.rds") # Read the RDS file data into a data frame
+maternal_mortality_csv <- read_csv("maternal_mortality_ratio.csv") # Read the CSV file data into a data frame
+str(maternal_mortality_rds) # Shows and verifies the structure of the RDS data
+str(maternal_mortality_csv) # Shows and verifies the structure of the CSV data
+```
+
+```{r}
+infant_mortality <- read_csv("Infant mortality rate.csv") # read the data into a data frame
+str(infant_mortality) # Shows the structure of the data
+
+infant_clean <- infant_mortality %>%
+  select(country = name, variable = `deaths/1000 live births`,region = region) # Selects only the 3 required columns: country name, variable and region
+
+infant_clean <- infant_clean %>% mutate( # Clean the data
+    country = trimws(country), # Trim any white spaces
+    region = trimws(region), # Trim any white spaces
+    variable = as.numeric(variable) # Checks that the values are numeric only
+  ) %>% filter(!is.na(variable)) # Removes any missing rows
+
+saveRDS(infant_clean, "infant_mortality_rate.rds") # Saves the data as an RDS file
+write_csv(infant_clean, "infant_mortality_rate.csv") # Saves the data as a CSV file
+
+infant_mortality_rds <- readRDS("infant_mortality_rate.rds") # Read the RDS file data into a data frame
+infant_mortality_csv <- read_csv("infant_mortality_rate.csv") # Read the CSV file data into a data frame
+str(infant_mortality_rds) # Shows and verifies the structure of the RDS data
+str(infant_mortality_csv) # Shows and verifies the structure of the CSV data
+```
+
+```{r}
+life_expectancy <- read_csv("Life expectancy at birth.csv") # read the data into a data frame
+str(life_expectancy) # Shows the structure of the data
+
+life_expectancy_clean <- life_expectancy %>%
+  select(country = name, variable = years,region = region) # Selects only the 3 required columns: country name, variable and region
+
+life_expectancy_clean <- life_expectancy_clean %>% mutate( # Clean the data
+    country = trimws(country), # Trim any white spaces
+    region = trimws(region), # Trim any white spaces
+    variable = as.numeric(variable) # Checks that the values are numeric only
+  ) %>% filter(!is.na(variable)) # Removes any missing rows
+
+saveRDS(life_expectancy_clean, "life_expectancy_at_birth.rds") # Saves the data as an RDS file
+write_csv(life_expectancy_clean, "life_expectancy_at_birth.csv") # Saves the data as a CSV file
+
+life_expectancy_rds <- readRDS("life_expectancy_at_birth.rds") # Read the RDS file data into a data frame
+life_expectancy_csv <- read_csv("life_expectancy_at_birth.csv") # Read the CSV file data into a data frame
+str(life_expectancy_rds) # Shows and verifies the structure of the RDS data
+str(life_expectancy_csv) # Shows and verifies the structure of the CSV data
+```
+
